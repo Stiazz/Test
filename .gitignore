@@ -1,0 +1,8 @@
+# Maven builds
+*/target/
+target/
+**/.factorypath
+
+# Intellij IDEA files
+.idea
+*.iml
