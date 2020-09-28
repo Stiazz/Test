@@ -1,15 +1,16 @@
 package ru.rudolf;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 public abstract class AbstractElement {
     //ДатаСоздания
-    private final LocalDate dateCreation;
+    private final LocalDateTime dateCreation;
     //ДатаНачала
-    private LocalDate startDate;
+    private LocalDateTime startDate;
     //ДатаЗавершения
-    private LocalDate endDate;
+    private LocalDateTime endDate;
     //Состояние
     private ElementState state;
     //ОтветственноеЛицо
@@ -18,7 +19,7 @@ public abstract class AbstractElement {
     private int readiness;
 
     protected AbstractElement(){
-        dateCreation = LocalDate.now();
+        dateCreation = LocalDateTime.now();
         state = ElementState.New;
         readiness = 0;
     }
@@ -26,21 +27,21 @@ public abstract class AbstractElement {
     /*
         Возвращает дату создания
     */
-    public LocalDate getDateCreation() {
+    public LocalDateTime getDateCreation() {
         return dateCreation;
     }
 
     /*
         Возвращает дату начала
     */
-    public LocalDate getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
     /*
         Указать дату начала (ДатаСоздания < ДатаНачала)
     */
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         if (ChronoUnit.SECONDS.between(dateCreation, startDate) < 0){
             this.startDate = startDate;
         }
@@ -49,14 +50,14 @@ public abstract class AbstractElement {
     /*
         Возвращает дату окончания
     */
-    public LocalDate getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
     /*
         Указать дату завершения (ДатаНачала < ДатаЗавершения)
     */
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         if (ChronoUnit.SECONDS.between(startDate, endDate) < 0){
             this.endDate = endDate;
         }
