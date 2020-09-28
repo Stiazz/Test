@@ -3,6 +3,7 @@ package ru.rudolf;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 
 public abstract class AbstractElement {
     //ДатаСоздания
@@ -42,7 +43,7 @@ public abstract class AbstractElement {
         Указать дату начала (ДатаСоздания < ДатаНачала)
     */
     public void setStartDate(LocalDateTime startDate) {
-        if (ChronoUnit.SECONDS.between(dateCreation, startDate) < 0){
+        if (ChronoUnit.SECONDS.between(dateCreation, startDate) > 0){
             this.startDate = startDate;
         }
     }
@@ -58,9 +59,9 @@ public abstract class AbstractElement {
         Указать дату завершения (ДатаНачала < ДатаЗавершения)
     */
     public void setEndDate(LocalDateTime endDate) {
-        if (ChronoUnit.SECONDS.between(startDate, endDate) < 0){
+        if (ChronoUnit.SECONDS.between(startDate, endDate) > 0){
             this.endDate = endDate;
-        }
+        }else System.out.println("ДатаНачала должна быть меньше ДатаЗавершения");
     }
 
     /*
@@ -77,13 +78,19 @@ public abstract class AbstractElement {
 
         //Если Состояние != Новое, то должна быть указана Дата Начала
         if (state != ElementState.New && startDate != null){
-            this.state = state;
+            if (state == ElementState.Completed) {
+                if (endDate != null && readiness == 100)
+                    this.state = state;
+                else System.out.println("должна быть указана Дата Завершения и Готовность = 100");
+            }else this.state = state;
         }else System.out.println("Должна быть указана Дата Начала");
 
         //Если Состояние == Завершено, то должна быть указана Дата Завершения и Готовность = 100
-        if (state == ElementState.Completed && endDate != null && readiness == 100) {
-            this.state = state;
-        }else System.out.println("должна быть указана Дата Завершения и Готовность = 100");
+//        if (state == ElementState.Completed) {
+//            if (endDate != null && readiness == 100)
+//                this.state = state;
+//            else System.out.println("должна быть указана Дата Завершения и Готовность = 100");
+//        }
 
     }
 
@@ -111,9 +118,27 @@ public abstract class AbstractElement {
     /*
         Указывает готовность
     */
-    public void setReadiness(byte readiness) {
+    public void setReadiness(int readiness) {
         if (readiness > 0 && readiness <= 100){
             this.readiness = readiness;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AbstractElement)) return false;
+        AbstractElement that = (AbstractElement) o;
+        return getReadiness() == that.getReadiness() &&
+                Objects.equals(getDateCreation(), that.getDateCreation()) &&
+                Objects.equals(getStartDate(), that.getStartDate()) &&
+                Objects.equals(getEndDate(), that.getEndDate()) &&
+                getState() == that.getState() &&
+                Objects.equals(getResponsiblePerson(), that.getResponsiblePerson());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getDateCreation(), getStartDate(), getEndDate(), getState(), getResponsiblePerson(), getReadiness());
     }
 }
