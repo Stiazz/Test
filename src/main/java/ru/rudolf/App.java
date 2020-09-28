@@ -1,12 +1,6 @@
 package ru.rudolf;
 
-import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.subjects.PublishSubject;
-import io.reactivex.rxjava3.subjects.Subject;
-
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 public class App
 {

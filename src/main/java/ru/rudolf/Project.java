@@ -1,18 +1,17 @@
 package ru.rudolf;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 public class Project extends AbstractElement {
 
-    private final Set<Requirement> requirements;
+    private final ArrayList<Requirement> requirements;
 
     public Project() {
-        requirements = new HashSet<>();
+        requirements = new ArrayList<>();
     }
 
-    public Set<Requirement> getRequirements() {
+    public ArrayList<Requirement> getRequirements() {
         return requirements;
     }
 

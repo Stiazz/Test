@@ -2,6 +2,7 @@ package ru.rudolf;
 
 public class Task extends AbstractElement {
 
+
     private TaskType taskType;
 
     public TaskType getTaskType() {

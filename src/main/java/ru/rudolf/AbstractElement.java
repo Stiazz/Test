@@ -17,7 +17,7 @@ public abstract class AbstractElement {
     //Готовность
     private int readiness;
 
-    protected AbstractElement() {
+    protected AbstractElement(){
         dateCreation = LocalDate.now();
         state = ElementState.New;
         readiness = 0;
@@ -41,7 +41,7 @@ public abstract class AbstractElement {
         Указать дату начала (ДатаСоздания < ДатаНачала)
     */
     public void setStartDate(LocalDate startDate) {
-        if (ChronoUnit.SECONDS.between(dateCreation, startDate) < 0) {
+        if (ChronoUnit.SECONDS.between(dateCreation, startDate) < 0){
             this.startDate = startDate;
         }
     }
@@ -57,7 +57,7 @@ public abstract class AbstractElement {
         Указать дату завершения (ДатаНачала < ДатаЗавершения)
     */
     public void setEndDate(LocalDate endDate) {
-        if (ChronoUnit.SECONDS.between(startDate, endDate) < 0) {
+        if (ChronoUnit.SECONDS.between(startDate, endDate) < 0){
             this.endDate = endDate;
         }
     }
@@ -75,14 +75,14 @@ public abstract class AbstractElement {
     public void setState(ElementState state) {
 
         //Если Состояние != Новое, то должна быть указана Дата Начала
-        if (state != ElementState.New && startDate != null) {
+        if (state != ElementState.New && startDate != null){
             this.state = state;
-        } else System.out.println("Должна быть указана Дата Начала");
+        }else System.out.println("Должна быть указана Дата Начала");
 
         //Если Состояние == Завершено, то должна быть указана Дата Завершения и Готовность = 100
         if (state == ElementState.Completed && endDate != null && readiness == 100) {
             this.state = state;
-        } else System.out.println("должна быть указана Дата Завершения и Готовность = 100");
+        }else System.out.println("должна быть указана Дата Завершения и Готовность = 100");
 
     }
 
@@ -111,7 +111,7 @@ public abstract class AbstractElement {
         Указывает готовность
     */
     public void setReadiness(byte readiness) {
-        if (readiness > 0 && readiness <= 100) {
+        if (readiness > 0 && readiness <= 100){
             this.readiness = readiness;
         }
     }

@@ -1,7 +1,5 @@
 package ru.rudolf;
 
-import io.reactivex.rxjava3.subjects.PublishSubject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,4 +22,5 @@ public class Requirement extends AbstractElement {
     public void addTask(Task task){
         this.tasks.add(task);
     }
+
 }

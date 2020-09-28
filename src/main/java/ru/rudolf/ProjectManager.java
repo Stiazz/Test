@@ -5,9 +5,9 @@ import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 
 public class ProjectManager {
-    public static LocalDate pdz(Collection<Project> projects) {
+    public static LocalDate calculationPDZ(Collection<Project> projects) {
         //Максмальное ПДЗ
-        LocalDate maxPZD = LocalDate.now();
+        LocalDate maxPDZ = LocalDate.now();
 
         //Получаем все проекты
         for (Project project : projects) {
@@ -16,7 +16,7 @@ public class ProjectManager {
                 //Получаем у текущего требования все задачи
                 for (Task task : requirement.getTasks()) {
                     if (task.getReadiness() != 100) {
-                        //ПЗД задачи
+                        //ПДЗ задачи
                         LocalDate pdz = LocalDate.now().plusDays(
                                 Math.round(1 / task.getTaskType().getK()
                                         * (100 - task.getReadiness())
@@ -24,13 +24,13 @@ public class ProjectManager {
                                 )
                         );
                         //f.ПДЗ требования есть максимальное значений ПДЗ задачи
-                        if (ChronoUnit.DAYS.between(pdz, maxPZD) > 0) {
-                            maxPZD = pdz;
+                        if (ChronoUnit.DAYS.between(pdz, maxPDZ) > 0) {
+                            maxPDZ = pdz;
                         }
                     }
                 }
             }
         }
-        return maxPZD;
+        return maxPDZ;
     }
 }
